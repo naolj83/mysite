@@ -8,3 +8,10 @@ desc user;
   
   -- user list(select)
   select * from user;
+  
+  delete
+  from user
+  where no = 8;
+  
+  select *
+  from book
