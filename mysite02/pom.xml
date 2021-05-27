@@ -27,7 +27,7 @@
 				<artifactId>tomcat-maven-plugin</artifactId>
 				<configuration>
 					<url>http://192.168.80.131:8080/manager/text</url>
-					<path>/guestbook02</path>
+					<path>/mysite02</path>
 					<username>admin</username>
 					<password>manager</password>
 				</configuration>
