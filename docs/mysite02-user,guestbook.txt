@@ -1,0 +1,40 @@
+mysite
+   |------- mysite02 [ MVC = model2 + 2(Servlet, JSP) ]
+   |------- mysite03 (Spring MVC, xml 설정)
+   |------- mysite04 (Spring MVC, java 설정1)
+   |------- mysite05 (Spring MVC, java 설정2)
+   |------- mysite06 (Spring Boot)
+
+com.douzone.mysite.controller
+	|------ MainController
+	|------ UserController
+	|------ GuestbookController
+com.douzone.mysite.repository
+	|------ UserRepository
+	|------ GuestbookRepository
+com.douzone.mysite.vo
+	|------ UserVo
+	|------ GuestbookVo
+com.douzone.mysite.mvc.util
+	|------ MvcUtils
+
+===========================
+com.douzone.mvc
+	|------ Action
+	|------ ActionFactory
+com.douzone.mvc.util
+	|------ MvcUtils
+
+com.douzone.mysite.mvc.main
+	|------ MainAction
+com.douzone.mysite.mvc.user
+	|------ UserActionFactory
+	|------ JoinAction
+	|------ JoinFormAction
+
+com.douzone.mysite.mvc.guestbook
+	|------ GuestbookActionFactory
+	|------ IndexAction
+	|------ AddAction
+	|------ DeleteFormAction
+	|------ DeleteAddAction
