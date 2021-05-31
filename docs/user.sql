@@ -9,9 +9,7 @@ desc user;
   -- user list(select)
   select * from user;
   
-  delete
-  from user
-  where no = 8;
-  
-  select *
-  from book
+  -- login(select)
+  select no, name 
+    from user 
+   where email='naolj83@gmail.com' and password='1234';
