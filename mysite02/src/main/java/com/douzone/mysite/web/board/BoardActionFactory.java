@@ -15,8 +15,16 @@ public class BoardActionFactory extends ActionFactory {
 			action = new WriteAction();
 		} else if("writeform".equals(actionName)) {
 			action = new WriteFormAction();
+		} else if("modifyform".equals(actionName)) {
+			action = new ModifyFormAction();
 		} else if("modify".equals(actionName)) {
 			action = new ModifyAction();
+		} else if("delete".equals(actionName)) {
+			action = new DeleteAction();
+		} else if("reply".equals(actionName)) {
+			action = new ReplyAction();
+		} else if("replyform".equals(actionName)) {
+			action = new ReplyFormAction();
 		} else { // default Action
 			action = new ListAction();
 		}
@@ -24,23 +32,3 @@ public class BoardActionFactory extends ActionFactory {
 		return action;
 	}
 }
-//if("delete".equals(actionName)) {
-//	action = new DeleteAction();
-//} else if ("deleteform".equals(actionName)) {
-//	action = new DeleteFormAction();
-//} else if ("add".equals(actionName)) {
-//	action = new AddAction();
-//} else {
-//	action = new ListAction();
-//}
-//return action;
-//}
-			
-//			if("writeform".equals(actionName)) {
-//			
-//			} else { //default Action
-//				action = new ListAction();
-//			}
-//			return action;
-//		}
-

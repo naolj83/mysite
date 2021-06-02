@@ -15,14 +15,14 @@ public class ViewAction implements Action {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-			String title = request.getParameter("title");
-			String content = request.getParameter("contents");
 			
-			BoardVo vo = new BoardVo();
-			vo.setTitle(title);
-			vo.setContents(content);
+			Long no = Long.parseLong(request.getParameter("no"));
+		
+			new BoardRepository().updateHit(no);
+			BoardVo vo = new BoardRepository().findByNo(no);
 			
-			new BoardRepository().insert(vo);
+			request.setAttribute("board", vo);
+			
 			MvcUtils.forward("board/view", request, response);
 	}
 

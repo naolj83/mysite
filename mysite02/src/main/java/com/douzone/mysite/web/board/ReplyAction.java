@@ -13,22 +13,38 @@ import com.douzone.mysite.vo.UserVo;
 import com.douzone.web.Action;
 import com.douzone.web.util.MvcUtils;
 
-public class ModifyAction implements Action {
+public class ReplyAction implements Action {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		HttpSession session = request.getSession();
+		if(session == null){
+			MvcUtils.redirect(request.getContextPath(), request, response);
+			return;
+		}
+		UserVo authUser = (UserVo)session.getAttribute("authUser");
+		if(authUser == null) {
+			return;
+		}
+		
+		Long userNo = authUser.getNo();
 		String title = request.getParameter("title");
-		String contents = request.getParameter("contents") ;
-		Long no = Long.parseLong(request.getParameter("no"));
+		String content = request.getParameter("content");
 		
 		BoardVo vo = new BoardVo();
 		vo.setTitle(title);
-		vo.setContents(contents);
-		vo.setNo(no);
+		vo.setContents(content);
+		vo.setGroupNo(new BoardRepository().findMaxGroupNo()+1);
+		vo.setOrderNo(0);
+		vo.setDepth(0);
+		vo.setHit(0);
+		vo.setUserNo(authUser.getNo());
 		
-		new BoardRepository().update(vo);
-		request.setAttribute("board", vo);
-		MvcUtils.redirect(request.getContextPath()+"/board?a=view&no=no", request, response);
+		new BoardRepository().insert2(vo);
+		MvcUtils.redirect(request.getContextPath()+"/board", request, response);
+
+
 	}
 
 }

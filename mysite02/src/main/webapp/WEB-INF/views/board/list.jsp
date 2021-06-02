@@ -1,8 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -32,18 +31,26 @@
 								<th>작성일</th>
 								<th>&nbsp;</th>
 							</tr>
-
 							<c:set var="count" value="${fn:length(list) }" />
 							<c:forEach items="${list }" var="vo" varStatus="status">
 
 								<tr>
 									<td>[${count-status.index }]</td>
-									<td><a
-										href="${pageContext.request.contextPath }/board?a=writeform&no=${vo.no }">${vo.title }</a></td>
-									<td>${vo.userNo }</td>
+									<c:choose>
+									<c:when test = "${vo.depth > 0 }">
+									<td style="text-align:left; padding-left: ${board.depth * 20 }px"><img src="${pageContext.servletContext.contextPath }/assets/images/reply.png"/>
+								<a href="${pageContext.request.contextPath }/board?a=view&no=${vo.no }">${vo.title }</a></td>
+										</c:when>
+										<c:otherwise>
+										<td style="text-align:left; padding-left: ${board.depth * 20 }px"><a
+										href="${pageContext.request.contextPath }/board?a=view&no=${vo.no }">${vo.title }</a></td></c:otherwise>
+										</c:choose>
+									<td>${vo.userName }</td>
 									<td>${vo.hit }</td>
 									<td>${vo.regDate }</td>
-									<td><a href="${pageContext.request.contextPath }" class="del">삭제</a></td>
+									<c:if test="${authUser.no == vo.userNo }">
+									<td><a href="${pageContext.request.contextPath }/board?a=delete&no=${vo.no}" class="del">삭제</a></td>
+									</c:if>
 								<tr>
 							</c:forEach>
 						</table> <br>
@@ -66,8 +73,10 @@
 						<!-- pager 추가 -->
 
 						<div class="bottom">
-							<a href="${pageContext.request.contextPath }/board?a=write"
+						<c:if test = "${not empty authUser }">
+							<a href="${pageContext.request.contextPath }/board?a=writeform"
 								id="new-book">글쓰기</a>
+								</c:if>
 						</div>
 			</div>
 		</div>

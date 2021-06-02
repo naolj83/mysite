@@ -13,3 +13,5 @@ desc user;
   select no, name 
     from user 
    where email='naolj83@gmail.com' and password='1234';
+   
+   delete from user where no = 13;
