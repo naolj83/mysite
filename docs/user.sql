@@ -9,7 +9,7 @@ desc user;
   -- user list(select)
   select * from user;
   
-  -- login(select)
+  -- login(select)user
   select no, name 
     from user 
    where email='naolj83@gmail.com' and password='1234';
