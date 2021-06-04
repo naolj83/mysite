@@ -40,7 +40,7 @@ public class GuestbookController {
 	}
 	
 	@RequestMapping(value="/delete/{no}", method=RequestMethod.POST)	//path~~ : 경로에서 들어오는 값
-	public String delete(@PathVariable("no") Long no, @RequestParam("password") String password, Model model) {
+	public String delete(@PathVariable("no") Long no, @RequestParam(value="password", required=true, defaultValue="") String password) {
 		guestbookService.deleteMessage(no, password);
 		return "redirect:/guestbook";
 	}
