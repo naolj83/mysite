@@ -142,13 +142,6 @@ public class GuestbookRepository {
 		return result;
 	}
 	
-	public boolean delete(Long no, String password) {
-		GuestbookVo vo = new GuestbookVo();
-		vo.setNo(no);
-		vo.setPassword(password);
-		
-		return delete(vo);
-	}	
 
 	private Connection getConnection() throws SQLException {
 		Connection conn = null;
