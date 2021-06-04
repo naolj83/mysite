@@ -27,17 +27,18 @@ public class GuestbookController {
 		return "guestbook/index";
 	}
 	
+	@RequestMapping(value="/add", method=RequestMethod.POST)
+	public String add(GuestbookVo vo) {
+		guestbookService.addMessage(vo);
+		return "redirect:/guestbook";
+	}
+	
 	@RequestMapping(value="/delete/{no}", method=RequestMethod.GET)
 	public String delete(@PathVariable("no") Long no, Model model) {
 		model.addAttribute("no", no);
 		return "guestbook/deleteform";
 	}
 
-	@RequestMapping(value="/add", method=RequestMethod.POST)
-	public String add(GuestbookVo vo) {
-		guestbookService.addMessage(vo);
-		return "redirect:/guestbook";
-	}
 	
 	@RequestMapping(value="/delete/{no}", method=RequestMethod.POST)	//path~~ : 경로에서 들어오는 값
 	public String delete(@PathVariable("no") Long no, @RequestParam(value="password", required=true, defaultValue="") String password) {

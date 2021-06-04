@@ -8,6 +8,6 @@ public class MainController {
 	
 	@RequestMapping("")
 	public String index() {	//뷰(jsp)이름이랑 핸들러이름이랑(메서드) 통일시키는게 좋음 
-		return "/main/index.jsp";
+		return "main/index";
 	}
 }
