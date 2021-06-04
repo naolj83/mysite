@@ -7,7 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-@ControllerAdvice
+@ControllerAdvice	// Exception advisor에 advice로 하나로 묶음
 public class GlobalExceptionHandler {
 	
 	@ExceptionHandler(Exception.class)	// Exception.class => 모든 예외
