@@ -15,9 +15,10 @@ public class DeleteAction implements Action {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String no = request.getParameter("no");
+		String no = request.getParameter("no"); 
 		String password = request.getParameter("password");
-		
+		System.out.println(no);
+		System.out.println(password);
 		GuestbookVo vo = new GuestbookVo();
 		vo.setNo(Long.parseLong(no));
 		vo.setPassword(password);

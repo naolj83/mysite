@@ -17,19 +17,13 @@ public class UpdateFormAction implements Action {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		// 접근제어(인증이 필요한 접근에 대한 체크)
-		if(session == null) {
-			MvcUtils.redirect(request.getContextPath(), request, response);
-			return;
-		}
-		UserVo authUser = (UserVo)session.getAttribute("authUser");
-		if(authUser == null) {
-			MvcUtils.redirect(request.getContextPath(), request, response);
-			return;
-		}
-		Long UserNo = authUser.getNo();
-//		UserVo userVo = new UserRepository().findByNo(userNo);
-//		request.setAttribute("userVo", userVo);
+		UserVo userVo = (UserVo)session.getAttribute("authUser");
+		userVo = new UserRepository().findByNo(userVo.getNo()); 
+		
+		request.setAttribute("name", userVo.getName());
+		request.setAttribute("email", userVo.getEmail());
+		request.setAttribute("gender", userVo.getGender());
+		
 		MvcUtils.forward("user/updateform", request, response);
 	}
 

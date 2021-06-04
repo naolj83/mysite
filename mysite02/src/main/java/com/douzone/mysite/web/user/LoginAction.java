@@ -30,7 +30,7 @@ public class LoginAction implements Action {
 		/* 인증처리(session 처리) */						// false - 없으면 null, 있으면 있는거 줘
 		HttpSession session = request.getSession(true);	// 없으면 만들어서 주고 있으면 있는거 줘
 		session.setAttribute("authUser", userVo);		
-		
+		System.out.println(userVo);
 		// main으로 리다이렉트!
 		MvcUtils.redirect(request.getContextPath(), request, response);
 	}
