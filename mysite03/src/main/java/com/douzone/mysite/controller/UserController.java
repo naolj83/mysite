@@ -84,6 +84,7 @@ public class UserController {
 		UserVo userVo = userService.getUser(no);
 		
 		model.addAttribute("user", userVo);
+		System.out.println(userVo);
 		return "user/update";
 	}
 

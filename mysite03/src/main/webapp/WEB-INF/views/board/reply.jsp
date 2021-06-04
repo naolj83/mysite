@@ -17,6 +17,7 @@
 			
 				<form class="board-form" method="post" action="${pageContext.request.contextPath }/board">
 					<input type = "hidden" name = "a" value="reply">
+					
 					<table class="tbl-ex">
 						<tr>
 							<th colspan="2">답글 쓰기</th>
