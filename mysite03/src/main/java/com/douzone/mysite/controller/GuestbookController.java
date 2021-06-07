@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,7 +16,6 @@ import com.douzone.mysite.vo.GuestbookVo;
 @Controller
 @RequestMapping("/guestbook")
 public class GuestbookController {
-	
 	@Autowired
 	GuestbookService guestbookService;
 	
@@ -37,11 +35,10 @@ public class GuestbookController {
 	@RequestMapping(value="/delete/{no}", method=RequestMethod.GET)
 	public String delete(@PathVariable("no") Long no, Model model) {
 		model.addAttribute("no", no);
-		return "guestbook/deleteform";
+		return "guestbook/delete";
 	}
 
-	
-	@RequestMapping(value="/delete/{no}", method=RequestMethod.POST)	//path~~ : 경로에서 들어오는 값
+	@RequestMapping(value="/delete/{no}", method=RequestMethod.POST)
 	public String delete(@PathVariable("no") Long no, @RequestParam(value="password", required=true, defaultValue="") String password) {
 		guestbookService.deleteMessage(no, password);
 		return "redirect:/guestbook";
