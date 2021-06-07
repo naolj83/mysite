@@ -39,7 +39,9 @@ public class UserController {
 	public String login() {
 		return "user/login";
 	}
-	
+
+	/** Interceptor 전 로그인 처리
+	 * 
 	@RequestMapping(value="/login", method=RequestMethod.POST)
 	public String login(
 			HttpSession session,
@@ -57,7 +59,10 @@ public class UserController {
 		session.setAttribute("authUser", authUser);
 		return "redirect:/";
 	}
+	*/
 	
+	/** Interceptor 전 logout 처리
+	 * 
 	@RequestMapping("/logout")
 	public String logout(HttpSession session) {
 		// 접근제어
@@ -66,12 +71,14 @@ public class UserController {
 			return "redirect:/";
 		}
 		
+		
 		// 로그아웃 처리
 		session.removeAttribute("authUser");
 		session.invalidate();
 		
 		return "redirect:/";
 	}
+	*/
 	
 	@Auth	// role="USER", test=false 가 default (Auth class)
 	@RequestMapping(value="/update", method=RequestMethod.GET)
