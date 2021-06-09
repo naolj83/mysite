@@ -10,10 +10,13 @@
 	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
+	<!-- auto proxy -->
+	<aop:aspectj-autoproxy />
+
 	<!-- Validator, conversionService, messageConverter를 자동으로 등록 -->
 	<mvc:annotation-driven>
 		<mvc:argument-resolvers>
-			<bean class="com.douzone.mysite.security.AuthUserHandlerMethodArgumentResolver"/>
+			<bean class="com.douzone.mysite.security.AuthUserHandlerMethodArgumentResolver" />
 		</mvc:argument-resolvers>
 	</mvc:annotation-driven>
 
@@ -23,24 +26,22 @@
 	<!-- Interceptors -->
 	<mvc:interceptors>
 		<mvc:interceptor>
-			<mvc:mapping path="/user/auth" />
+			<mvc:mapping path="/user/auth"/>
 			<bean class="com.douzone.mysite.security.LoginInterceptor" />
 		</mvc:interceptor>
-
 		<mvc:interceptor>
-			<mvc:mapping path="/user/logout" />
+			<mvc:mapping path="/user/logout"/>
 			<bean class="com.douzone.mysite.security.LogoutInterceptor" />
 		</mvc:interceptor>
-
 		<mvc:interceptor>
-			<mvc:mapping path="/user/**" />
-			<mvc:exclude-mapping path="/user/auth"/>
-			<mvc:exclude-mapping path="/user/logout"/>
-			<mvc:exclude-mapping path="/assets/**"/>
+			<mvc:mapping path="/**" />
+			<mvc:exclude-mapping path="/user/auth" />
+			<mvc:exclude-mapping path="/user/logout" />
+			<mvc:exclude-mapping path="/assets/**" />
 			<bean class="com.douzone.mysite.security.AuthInterceptor" />
 		</mvc:interceptor>
 	</mvc:interceptors>
-
+	
 	<!-- ViewResolver 설정 -->
 	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
@@ -50,6 +51,6 @@
 
 
 	<context:annotation-config />
-	<context:component-scan base-package="com.douzone.mysite.controller, com.douzone.mysite.exception" />
+	<context:component-scan base-package="com.douzone.mysite.controller,com.douzone.mysite.exception" />
 
 </beans>
