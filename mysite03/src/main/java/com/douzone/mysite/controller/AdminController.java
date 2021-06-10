@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.douzone.mysite.security.Auth;
+import com.douzone.mysite.security.AuthUser;
 import com.douzone.mysite.service.FileUploadService;
 import com.douzone.mysite.service.SiteService;
 import com.douzone.mysite.vo.SiteVo;
@@ -26,10 +27,6 @@ public class AdminController {
 		return "admin/main";
 	}
 
-	@RequestMapping(value="/main/update", method=RequestMethod.POST)
-	public String updateMain(SiteVo vo) {
-		return "redirect:/admin";
-	}
 
 	@RequestMapping("/guestbook")
 	public String guesbook() {
@@ -45,5 +42,13 @@ public class AdminController {
 	public String user() {
 		return "admin/user";
 	}
-
+	
+	@Auth
+	@RequestMapping(value="/main/update", method=RequestMethod.POST)
+	public String update(SiteVo vo) {
+		siteService.updateMessage(vo);
+		System.out.println(vo);
+		return "redirect:/admin";
+		
+	}
 }

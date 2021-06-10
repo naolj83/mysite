@@ -17,9 +17,7 @@ public class BoardRepository {
 	private SqlSession sqlSession;
 	
 	public int insert(BoardVo boardVo) {
-		sqlSession.insert("board.insert", boardVo);
-		System.out.println(boardVo.toString());
-		return 0;
+		return sqlSession.insert("board.insert", boardVo);
 	}
 	
 	public List<BoardVo> findAllByPageAndKeword(String keyword, Integer page, Integer size){
