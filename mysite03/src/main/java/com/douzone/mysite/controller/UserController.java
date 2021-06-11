@@ -1,10 +1,17 @@
 package com.douzone.mysite.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
 import com.douzone.mysite.security.Auth;
 import com.douzone.mysite.security.AuthUser;
 import com.douzone.mysite.service.UserService;
@@ -17,14 +24,24 @@ public class UserController {
 	private UserService userService;
 	
 	@RequestMapping(value="/join", method=RequestMethod.GET)
-	public String join() {
+	public String join(@ModelAttribute UserVo vo) {
 		return "user/join";
 	}
 
 	@RequestMapping(value="/join", method=RequestMethod.POST)
-	public String join(UserVo vo) {
-		userService.join(vo);
-		return "redirect:/user/joinsuccess";
+	public String join(@ModelAttribute @Validated UserVo vo, BindingResult result, Model model) {
+		if(result.hasErrors()) {
+//			List<ObjectError> list = result.getAllErrors();		// ObjectError는 vo의 에러
+//			for(ObjectError error : list) {
+//			System.out.println(error);
+//		}
+	}
+		//model.addAttribute("userVo", vo); - @ModelAttribute 어노테이션이 없을 때, spring은 코드 싫어하고 선언적인 거 좋아함.
+		model.addAllAttributes(result.getModel());			// jsp에서 ${map.a }아니라 ${a } 이렇게만 써도 됨
+		return "user/join";									// model이 jsp로 보내줌
+		
+		//userService.join(vo);
+		//return "redirect:/user/joinsuccess";
 	}
 	
 	@RequestMapping(value="/joinsuccess")
