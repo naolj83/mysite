@@ -41,3 +41,18 @@ where no = 1;
 -- update
 update board set title = ?, contents = ?, reg_date = now()
 where no = ?;
+
+select last_insert_id();
+
+select * from user;
+
+desc gallery;
+
+desc site;
+select * from site;
+
+select title, welcome, profile, description
+		 from site;
+         
+select * from user;
+
