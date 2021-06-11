@@ -19,12 +19,12 @@ public class SiteRepository {
 		return count == 1;
 	}
 	
-	public List<SiteVo> findAll(){
-		return sqlSession.selectList("site.findAll");
+	public SiteVo findAll(){
+		return sqlSession.selectOne("site.findAll");
 	}
 	
 	public boolean update(SiteVo vo) {
-		int count = sqlSession.selectOne("site.update", vo);
+		int count = sqlSession.update("site.update", vo);
 		return count == 1;
 	}
 	

@@ -4,7 +4,7 @@
 	<insert id="insert" parameterType="sitevo">
 		<![CDATA[
 		insert
-		 into user
+		 into site
 		 values(#{title }, #{welcome }, #{profile }, #{description })
 		]]>
 	</insert>
@@ -20,11 +20,13 @@
 	<update id="update" parameterType="sitevo">
 		<![CDATA[
 			update site
-			   set title=title,
-			  welcome=#{welcome }
-			 profile=#{profile }
+			   set title=#{title },
+			  welcome=#{welcome },
 			   description=#{description }
 			]]>
+			<choose>
+			<when test="profile != null">, profile=#{profile }</when>
+			</choose>
 	</update>
 	
 </mapper>
