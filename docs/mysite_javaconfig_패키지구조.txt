@@ -10,7 +10,7 @@
           |                      |      |--- web
           |                      |      |     |--- MvcConfig.java
           |                      |      |     |--- SecurityConfig.java
-          |                      |      |     |--- MessageSourceConfig.java
+          |                      |      |     |--- MessageConfig.java
           |                      |      |     |--- FileuploadConfig.java
           |                      |--- mysite
           |                             |--- controller
