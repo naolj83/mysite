@@ -2,7 +2,7 @@ package com.douzone.mysite.vo;
 
 public class GalleryVo {
 	private Long no;
-	private String conments;
+	private String coments;
 	private String url;
 	
 	public Long getNo() {
@@ -11,11 +11,11 @@ public class GalleryVo {
 	public void setNo(Long no) {
 		this.no = no;
 	}
-	public String getConments() {
-		return conments;
+	public String getComents() {
+		return coments;
 	}
-	public void setConments(String conments) {
-		this.conments = conments;
+	public void setComents(String coments) {
+		this.coments = coments;
 	}
 	public String getUrl() {
 		return url;
@@ -25,7 +25,7 @@ public class GalleryVo {
 	}
 	@Override
 	public String toString() {
-		return "GalleryVo [no=" + no + ", conments=" + conments + ", url=" + url + "]";
+		return "GalleryVo [no=" + no + ", coments=" + coments + ", url=" + url + "]";
 	}
 	
 	

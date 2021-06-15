@@ -14,16 +14,17 @@ public class GalleryRepository {
 	@Autowired
 	private SqlSession sqlSession;
 
-	public int insert(GalleryVo galleryVo) {
-		return sqlSession.insert("gallery.insert", galleryVo);
-	}
-	
-	public int delete(Long no) {
-		return sqlSession.delete("gallery.delete", no);
-	}
-	
 	public List<GalleryVo> findAll(){
 		List<GalleryVo> list = sqlSession.selectList("gallery.findAll");
 		return list;
 	}
+	
+	public boolean insert(GalleryVo vo) {
+		return sqlSession.insert("gallery.insert", vo) == 1;
+	}
+	
+	public boolean delete(Long no) {
+		return sqlSession.delete("gallery.delete", no) == 1;
+	}
+	
 }

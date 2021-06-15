@@ -14,15 +14,16 @@ public class GalleryService {
 	@Autowired
 	GalleryRepository galleryRepository;
 	
-	public void insert(GalleryVo galleryVo) {
-		galleryRepository.insert(galleryVo);
+	public List<GalleryVo> findAll(){
+		return galleryRepository.findAll();
+	}
+
+	public void insert(GalleryVo vo) {
+		galleryRepository.insert(vo);
 	}
 	
 	public void delete(Long no) {
 		galleryRepository.delete(no);
 	}
 	
-	public List<GalleryVo> findAll(){
-		return galleryRepository.findAll();
-	}
 }
