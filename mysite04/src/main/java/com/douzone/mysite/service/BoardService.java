@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.douzone.mysite.repository.BoardRepository;
 import com.douzone.mysite.vo.BoardVo;
@@ -14,6 +15,7 @@ public class BoardService {
 	@Autowired
 	BoardRepository boardRepository;
 	
+	@Transactional
 	public void addMessage(BoardVo vo) {
 		boardRepository.insert(vo);
 	}
