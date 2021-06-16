@@ -33,22 +33,22 @@ public class GalleryController {
 	}
 	
 	@RequestMapping(value="/upload", method=RequestMethod.POST)
-	public String upload(GalleryVo galleryVo, @RequestParam("file") MultipartFile file ) {
+	public String upload(GalleryVo vo, MultipartFile file ) {
 		String url = fileUploadService.restore(file);
-		galleryVo.setUrl(url);
-		galleryService.insert(galleryVo);
+		vo.setUrl(url);
+		galleryService.insert(vo);
 
-		galleryService.insert(galleryVo);
 		return "redirect:/gallery";
 	}
 	
-	@RequestMapping("/delete/{no}")
-	public String delete(@PathVariable(value="no") Long no) {
-		galleryService.delete(no);
-		System.out.println(no);
+	@RequestMapping(value="/delete/{no}", method=RequestMethod.GET)
+	public String deleteform(@PathVariable(value="no") String no) {
+		galleryService.delete(Long.parseLong(no));
+		
 		return "redirect:/gallery";
 	}
 	
+
 
 
 }
