@@ -56,3 +56,6 @@ select title, welcome, profile, description
          
 select * from user;
 
+update user set password='1234' where no=2;
+
+select * from gallery;
