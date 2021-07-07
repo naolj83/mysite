@@ -22,12 +22,12 @@ public class GuestbookService {
 		return guestbookRepository.findAll(no);
 	}
 	
-	public void deleteMessage(Long no,String password) {
+	public boolean deleteMessage(Long no,String password) {
 		GuestbookVo vo = new GuestbookVo();
 		vo.setNo(no);
 		vo.setPassword(password);
 		
-		guestbookRepository.delete(vo);
+		return guestbookRepository.delete(vo);
 	}
 
 	public void addMessage(GuestbookVo vo) {
