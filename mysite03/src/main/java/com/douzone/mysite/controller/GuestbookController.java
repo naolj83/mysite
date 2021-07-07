@@ -44,6 +44,10 @@ public class GuestbookController {
 		return "redirect:/guestbook";
 	}
 
+	@RequestMapping("/spa")
+	public String spaLanding() {
+		return "guestbook/spa-landing";
+	}
 // controller마다 예외 각각 모으는 것
 //	@ExceptionHandler(Exception.class)	// Exception.class => 모든 예외
 //	public String handlerException() {
