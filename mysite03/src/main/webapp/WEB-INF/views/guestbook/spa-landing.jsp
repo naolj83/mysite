@@ -36,6 +36,176 @@
  - 삭제 성공한 경우(no > 0), data-no=10 인 li element를 삭제
  - 렌더링 참고: /ch08/test/gb/ex3
  */
+ 
+
+
+ 
+ /* scroll */
+ $(function(){
+	$(window).scroll(function(){
+		var $window = $(this);
+		
+		var windowHeight = $window.height();
+		var scrollTop = $window.scrollTop();
+		var documentHeight = $(document).height();
+		
+		if(scrollTop + windowHeight + 10 > documentHeight){
+			console.log("fetch list!!!");
+		}
+	});
+});  
+ 
+ /* list */
+ var fetch = function(){
+	var no = $("#list-guestbook li:last-child").data("no");
+	if(no == null){
+		no = -1;
+	}
+	console.log(no);
+	 $.ajax({
+			url: "${pageContext.request.contextPath }/guestbook/api/list",
+			dataType: "json",	
+			type: "get",
+			data: "no=" + no,
+			success: function(response){
+				response.data.forEach(function(vo){
+					html = 
+						"<li data-no='" + vo.no + "'>" + 
+							"<strong>" + vo.name + "</strong>" +
+							"<p>" + vo.message + "</p>" +
+							"<strong></strong>" +
+							"<a href='' data-no='" + vo.no + "'>삭제</a>" + 
+						"</li>";
+					$("#list-guestbook").append(html);
+				});
+			}
+	 });
+ }
+ 
+ $(function(){
+	 $("#btn-fetch").click(function(){
+		 fetch();
+	 });
+	 
+	 /* add */
+	 $("#add-form").submit(function(event){
+		 event.preventDefault();
+		 
+		 vo = {}
+		 
+		 vo.name = $("#input-name").val();
+		 if(vo.name == ""){
+			 $("#dialog-message").dialog({
+				 modal: true,
+				 buttons: {
+					 "확인": function(){
+						 $(this).dialog("close");
+					 }
+				 }
+			 });
+			 return;
+		 }
+		 vo.password = $("#input-password").val();
+		 if(vo.password == ""){
+			 $("#dialog-message").dialog({
+				 modal: true,
+				 buttons: {
+					 "확인": function(){
+						 $(this).dialog("close");
+					 }
+				 }
+			 });
+			 return;
+		 }
+		vo.message = $("#tx-content").val();
+		 if(vo.message == ""){
+			 $("#dialog-message").dialog({
+				 modal: true,
+				 buttons: {
+					 "확인": function(){
+						 $(this).dialog("close");
+					 }
+				 }
+			 });
+			 return;
+		 }
+		
+			$.ajax({
+				url: "${pageContext.request.contextPath }/guestbook/api/add",
+				dataType: "json",
+				type: "post",	
+				contentType: "application/json",	
+				data: JSON.stringify(vo),			
+				success: function(response){
+					var vo = response.data;
+					html = 
+						"<li data-no='" + vo.no + "'>" + 
+							"<strong>" + vo.name + "</strong>" +
+							"<p>" + vo.message + "</p>" +
+							"<strong></strong>" +
+							"<a href='' data-no='" + vo.no + "'>삭제</a>" + 
+						"</li>";			
+					$("#list-guestbook").prepend(html);		
+			}
+		});
+	});
+	 
+	 /* delete */
+		$(document).on("click", "#list-guestbook li a", function(event) {
+			event.preventDefault();
+			
+			let no = $(this).data("no");
+			$("#hidden-no").val(no);
+			
+			deleteDialog.dialog("open");
+		});
+
+		// 삭제 다이얼로그 만들기
+		const deleteDialog = $("#dialog-delete-form").dialog({
+			autoOpen: false,
+			width: 300,
+			height: 220,
+			modal: true,
+			buttons: {
+				"삭제": function(){
+					const no = $("#hidden-no").val();
+					const password = $("#password-delete").val();
+					$.ajax({
+						url: "${pageContext.request.contextPath }/guestbook/api/delete/" + no,
+						dataType: "json",	
+						type: "post",
+						data: "password=" + password,
+						success: function(response){
+							if(response.data == -1){
+								// 비밀번호가 틀린 경우
+								$(".validateTips.error").show();
+								return;
+							}
+							
+							$("#list-guestbook li[data-no=" + response.data + "]").remove();
+							deleteDialog.dialog("close");
+						}
+					});
+				},
+				"취소": function(){
+					$(this).dialog("close");
+				}
+			},
+			close: function(){
+				// 1. password 비우기
+				// 2. no 비우기
+				// 3. error message 숨기기
+				console.log("다이얼로그 폼 데이터 정리 작업");
+				
+			}
+			
+		});
+
+	 
+	 fetch();
+ })
+ 
+
 </script>
 </head>
 <body>
@@ -50,40 +220,7 @@
 					<textarea id="tx-content" placeholder="내용을 입력해 주세요."></textarea>
 					<input type="submit" value="보내기" />
 				</form>
-				<ul id="list-guestbook">
-
-					<li data-no=''>
-						<strong>지나가다가</strong>
-						<p>
-							별루입니다.<br>
-							비번:1234 -,.-
-						</p>
-						<strong></strong>
-						<a href='' data-no=''>삭제</a> 
-					</li>
-					
-					<li data-no=''>
-						<strong>둘리</strong>
-						<p>
-							안녕하세요<br>
-							홈페이지가 개 굿 입니다.
-						</p>
-						<strong></strong>
-						<a href='' data-no=''>삭제</a> 
-					</li>
-
-					<li data-no=''>
-						<strong>주인</strong>
-						<p>
-							아작스 방명록 입니다.<br>
-							테스트~
-						</p>
-						<strong></strong>
-						<a href='' data-no=''>삭제</a> 
-					</li>
-					
-									
-				</ul>
+				<ul id="list-guestbook"></ul>
 				<div style="margin: 20px 0 0 0">
 					<button id="btn-fetch">다음 가져오기</button>
 				</div>
@@ -97,8 +234,8 @@
 					<input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
   				</form>
 			</div>
-			<div id="dialog-message" title="" style="display:none">
-  				<p></p>
+			<div id="dialog-message" title="Error" style="display:none">
+  				<p>이름을 입력하세요.</p>
 			</div>						
 		</div>
 		<c:import url="/WEB-INF/views/includes/navigation.jsp" />
