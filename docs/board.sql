@@ -59,3 +59,8 @@ select * from user;
 update user set password='1234' where no=2;
 
 select * from gallery;
+delete from gallery;
+
+select * from user;
+update gallery set role='ADMIN'
+where no = 1;
