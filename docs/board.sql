@@ -62,5 +62,14 @@ select * from gallery;
 delete from gallery;
 
 select * from user;
-update gallery set role='ADMIN'
-where no = 1;
+update user set role='USER'
+where no = 2;
+
+desc guestbook;
+desc user;
+desc board;
+select * from board;
+delete from board where user_no = 18;
+select * from user;
+delete from user where no = 25;
+insert into user values(null, '테스트', '이메일', '1234', 'male', 'USER');
